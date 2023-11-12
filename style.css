@@ -2,6 +2,9 @@ body{
     background-color: rgb(34,94,94);
     background-repeat: no-repeat;
     background-size:cover;
+    display: flex;justify-content: center;
+    align-items: center;flex-direction: column;
+
 }
 .gameBoard{
     border: 0.1rem solid snow;
@@ -14,4 +17,10 @@ body{
     font-size: 3rem;
     display: flex;justify-content: center;
     align-items: center;
+}
+
+.displayer{
+    color:white;
+    padding: .5rem;
+    font-size: 1.5rem;
 }

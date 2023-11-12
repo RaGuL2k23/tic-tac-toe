@@ -1,24 +1,29 @@
 const GameBoard = (function(){   
-   let winner='noOne',xOry=0 ;let noOfBoxFilled = 0;
+   let winner='noOne',xOry=0 ,noOfBoxFilled = 0;
    const row = 3;
    const col = 3; 
    const gameBoard =[];
    const gamePad = document.querySelector(".gameBoard");
+   const displayer = document.querySelector('.displayer');
+   let boxes;
+    function createGamePad(){
+       
+        for(let i =0;i<row;i++){
+            gameBoard[i] =[];//row
+            
+            for(let j=0;j<col;j++){
+                
+                gameBoard[i].push([]);//columns
 
-   for(let i =0;i<row;i++){
-    gameBoard[i] =[];
-    
-    for(let j=0;j<col;j++){
-        let box = document.createElement('div');
-        box.classList.add('box');
-        gamePad.appendChild(box);
-        gameBoard[i].push([]);
-        box.setAttribute('data-box',`${i}${j}`);
-
+                let box = document.createElement('div');
+                box.classList.add('box');
+                gamePad.appendChild(box);
+                box.setAttribute('data-box',`${i}${j}`);
+        
+            }
+           } 
+           boxes = document.querySelectorAll(".box");
     }
-   }
-
-
 
 
    const checkWinner = function(arr){
@@ -26,12 +31,12 @@ const GameBoard = (function(){
         checkFullColumns(arr,el);checkFullRows(arr,el);
         checkMainDiagonal(arr,el);checkOffDiagonal(arr,el)
     } );
-     checkNoOfBoxFilled();
+     checkForTie();
    }
 
-    function checkNoOfBoxFilled(){
+    function checkForTie(){
        if(noOfBoxFilled >=9 && winner=="noOne"){
-        console.log("Game is a Tie Brother",noOfBoxFilled)
+        displayer.textContent="Game is a Tie Brother";
         }
     }
 
@@ -72,22 +77,27 @@ const GameBoard = (function(){
     }
     function winnerFound(value){
         if(value){
-            console.log("Hey winner is "+winner);
+            displayer.textContent = ("Hey winner is "+winner);
         }
         /*prevnts from giving additional input values to boxes*/
         boxes.forEach( (box) => {if(box.textContent=='') {box.textContent=` `} } );
     }
 
  
-let boxes = document.querySelectorAll(".box");
+
     const startGame = function(){
+        winner='noOne';noOfBoxFilled =0;xOry=0;//strtng frm scratch
+        createGamePad();
         boxes.forEach( (box)=>{
             box.addEventListener('click',()=>addValue(box) )
             
         });
     }
-//filling with dummy value
-boxes.forEach( (box) =>  box.textContent='' )
+//filling with dummy value ;, 
+    const restartGame = function(){ 
+        boxes.forEach( (box) =>  box.textContent='');
+        startGame();
+    }
 function addValue(box){
     
     if(box.textContent ==''){
@@ -102,8 +112,14 @@ function addValue(box){
          checkWinner(gameBoard);
     }
 }
-         return{startGame}
+    //Handling display and other things
+    
+
+         return{startGame,restartGame}
   })();
 
   startButton = document.querySelector(".startButton");
-  startButton.addEventListener('click',GameBoard.startGame)
+  reStartButtton = document.querySelector(".reStartButton");
+  startButton.addEventListener('click',GameBoard.startGame);
+  reStartButtton.addEventListener('click',GameBoard.restartGame);
+  console.log(reStartButtton)   
