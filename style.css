@@ -4,7 +4,7 @@ body{
     background-size:cover;
     display: flex;justify-content: center;
     align-items: center;flex-direction: column;
-
+    gap:10px;
 }
 .gameBoard{
     border: 0.1rem solid snow;
@@ -23,4 +23,20 @@ body{
     color:white;
     padding: .5rem;
     font-size: 1.5rem;
+}
+input,button{
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    margin: 0;height: 2rem;
+    width: 12rem;
+    box-sizing: border-box;
+    font-size: 100%;
+    font-family: inherit;
+    display: block;/* this is fing important*/
+    border-radius: 3px;
+}
+button{
+    width: fit-content;
+    padding: 5px;
 }

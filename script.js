@@ -1,13 +1,14 @@
 const GameBoard = (function(){   
-   let winner='noOne',xOry=0 ,noOfBoxFilled = 0;
+   let winner='noOne',xOry=0 ,noOfBoxFilled = 0,winners=[];
    const row = 3;
    const col = 3; 
    const gameBoard =[];
-   const gamePad = document.querySelector(".gameBoard");
+   const gamePadContainer =document.querySelector(".gameBoardContainer");console.log(gamePadContainer)
+   const gamePad = document.createElement("div");
+   gamePad.setAttribute('class','gameBoard');console.log(gamePad)
    const displayer = document.querySelector('.displayer');
    let boxes;
-    function createGamePad(){
-       
+          
         for(let i =0;i<row;i++){
             gameBoard[i] =[];//row
             
@@ -21,10 +22,9 @@ const GameBoard = (function(){
                 box.setAttribute('data-box',`${i}${j}`);
         
             }
-           } 
+            }   
+            gamePadContainer.appendChild(gamePad);console.log(gamePad)
            boxes = document.querySelectorAll(".box");
-    }
-
 
    const checkWinner = function(arr){
     ['x','o'].forEach( (el)=> { 
@@ -76,10 +76,19 @@ const GameBoard = (function(){
         }
     }
     function winnerFound(value){
+        winner = value=='x'?player1:player2;
         if(value){
             displayer.textContent = ("Hey winner is "+winner);
+            winners.push(winner);
+          
+             winners.forEach( (e,i)=>{
+                const div = document.createElement("div");
+                div.textContent +=(`\nRound:${i+1},winner is,${e}`);
+                displayer.appendChild(div);} );
+           
         }
-        /*prevnts from giving additional input values to boxes*/
+        /*prevnts from giving additional input values to boxes
+        cause after winning no need to accept any x or o inputs*/
         boxes.forEach( (box) => {if(box.textContent=='') {box.textContent=` `} } );
     }
 
@@ -87,7 +96,7 @@ const GameBoard = (function(){
 
     const startGame = function(){
         winner='noOne';noOfBoxFilled =0;xOry=0;//strtng frm scratch
-        createGamePad();
+        // createGamePad(); 
         boxes.forEach( (box)=>{
             box.addEventListener('click',()=>addValue(box) )
             
@@ -96,6 +105,11 @@ const GameBoard = (function(){
 //filling with dummy value ;, 
     const restartGame = function(){ 
         boxes.forEach( (box) =>  box.textContent='');
+        for(i=0;i<3;i++){ //erase previouse array values
+            for(j=0;j<3;j++){//to none
+                gameBoard[i][j]='';
+            }
+        }
         startGame();
     }
 function addValue(box){
@@ -109,17 +123,28 @@ function addValue(box){
         [j,k]=boxNo.split('');
         gameBoard[j][k] = box.textContent;
         noOfBoxFilled++;
-         checkWinner(gameBoard);
+        checkWinner(gameBoard);
     }
 }
     //Handling display and other things
     
 
-         return{startGame,restartGame}
+     return{startGame,restartGame}
   })();
 
+
+  let player1,player2;
+  player1 = document.querySelector("#name1").value;
+  player2 = document.querySelector("#name2").value;
+  submitName = document.querySelector("#submitNames");
+  function getNames(){
+    player1 = document.querySelector("#name1").value;
+  player2 = document.querySelector("#name2").value;
+  }
   startButton = document.querySelector(".startButton");
   reStartButtton = document.querySelector(".reStartButton");
   startButton.addEventListener('click',GameBoard.startGame);
-  reStartButtton.addEventListener('click',GameBoard.restartGame);
-  console.log(reStartButtton)   
+  reStartButtton.addEventListener('click',GameBoard.restartGame);   
+
+  //['rocky', 'rocky', 'rocky', 'bababoi'].
+  //forEach( (e,i)=>console.log(i+1,'th','winner is',e) )

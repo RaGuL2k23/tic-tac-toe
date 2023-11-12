@@ -8,14 +8,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body >    
     <h1>Tic-Tac-Toe</h1>
-        <div class="gameBoard">
+    <div class="nameHolder">
+         <p><label for="name1">Player 1(x)</label><input placeholder="rocky" value="rocky" id="name1" type="text"></p>
+        <p><label for="name2">Player 2(o)</label><input placeholder="bababoi" value="bababoi" id="name2" type="text"></p>
+        <button type="button" id="submitNames">Submit Names</button>  
+    </div>
+
+        <div class="gameBoardContainer">
             
         </div>
-        <br>
-        <p><button type="button" class="startButton">Start Game</button>
+        <p class="btnHolder"><button type="button" class="startButton">Start Game</button>
             <button type="button" class="reStartButton">ReStart Game</button>  </p>
     <div class="displayer"></div>
 </body>
 </html>
+
+<style>
+    .btnHolder{
+        display: flex;gap: 30px;
+    }
+    div.nameHolder{
+        display: grid;justify-content: center;align-items: center;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: 60px;
+        gap: 5px;margin-top: -15px;
+        &>p:nth-child(2){
+            grid-row: 2;
+            grid-column: 1/2; 
+        }
+    }
+    #submitNames{
+        height: fit-content;
+        grid-column: 2/3;
+    grid-row: 1.4/2;margin-top: 83px;
+    margin-left: 40px;
+    }
+    label{
+        color:white;
+        font-size: 1.8rem;
+        &~input{
+            font-size: 1.6rem;
+            border:2px ridge gray;
+        }
+    }
+    
+</style>
