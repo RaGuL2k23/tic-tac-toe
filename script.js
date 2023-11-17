@@ -60,6 +60,12 @@ const GameBoard = (function(){
         }
     }
 
+    function getNames(){
+        submitName.classList.add('gameStarted')
+        player1 = document.querySelector("#name1").value;
+      player2 = document.querySelector("#name2").value;
+      }
+
     function checkMainDiagonal(arr,el){
         value = el;
             if(arr[0][0] == value && arr[1][1] == value &&arr[2][2] == value){
@@ -95,6 +101,7 @@ const GameBoard = (function(){
  
 
     const startGame = function(){
+        startButton.classList.add("gameStarted")
         winner='noOne';noOfBoxFilled =0;xOry=0;//strtng frm scratch
         // createGamePad(); 
         boxes.forEach( (box)=>{
@@ -129,7 +136,7 @@ function addValue(box){
     //Handling display and other things
     
 
-     return{startGame,restartGame}
+     return{startGame,restartGame,getNames}
   })();
 
 
@@ -137,14 +144,11 @@ function addValue(box){
   player1 = document.querySelector("#name1").value;
   player2 = document.querySelector("#name2").value;
   submitName = document.querySelector("#submitNames");
-  function getNames(){
-    player1 = document.querySelector("#name1").value;
-  player2 = document.querySelector("#name2").value;
-  }
+ 
   startButton = document.querySelector(".startButton");
   reStartButtton = document.querySelector(".reStartButton");
   startButton.addEventListener('click',GameBoard.startGame);
   reStartButtton.addEventListener('click',GameBoard.restartGame);   
-
+  submitName.addEventListener('click',GameBoard.getNames)
   //['rocky', 'rocky', 'rocky', 'bababoi'].
   //forEach( (e,i)=>console.log(i+1,'th','winner is',e) )

@@ -39,4 +39,8 @@ input,button{
 button{
     width: fit-content;
     padding: 5px;
+    &:active{
+        box-shadow: -1px -1px 5px 5px rgb(59, 146, 46); 
+    }
+    background-color: red;
 }
